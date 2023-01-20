@@ -1,0 +1,119 @@
+"""
+Design your implementation of the circular double-ended queue (deque).
+
+Implement the MyCircularDeque class:
+
+MyCircularDeque(int k) Initializes the deque with a maximum size of k.
+boolean insertFront() Adds an item at the front of Deque. Returns true if the operation is successful, or false otherwise.
+boolean insertLast() Adds an item at the rear of Deque. Returns true if the operation is successful, or false otherwise.
+boolean deleteFront() Deletes an item from the front of Deque. Returns true if the operation is successful, or false otherwise.
+boolean deleteLast() Deletes an item from the rear of Deque. Returns true if the operation is successful, or false otherwise.
+int getFront() Returns the front item from the Deque. Returns -1 if the deque is empty.
+int getRear() Returns the last item from Deque. Returns -1 if the deque is empty.
+boolean isEmpty() Returns true if the deque is empty, or false otherwise.
+boolean isFull() Returns true if the deque is full, or false otherwise.
+ 
+
+Example 1:
+
+Input
+["MyCircularDeque", "insertLast", "insertLast", "insertFront", "insertFront", "getRear", "isFull", "deleteLast", "insertFront", "getFront"]
+[[3], [1], [2], [3], [4], [], [], [], [4], []]
+Output
+[null, true, true, true, false, 2, true, true, true, 4]
+
+Explanation
+MyCircularDeque myCircularDeque = new MyCircularDeque(3);
+myCircularDeque.insertLast(1);  // return True
+myCircularDeque.insertLast(2);  // return True
+myCircularDeque.insertFront(3); // return True
+myCircularDeque.insertFront(4); // return False, the queue is full.
+myCircularDeque.getRear();      // return 2
+myCircularDeque.isFull();       // return True
+myCircularDeque.deleteLast();   // return True
+myCircularDeque.insertFront(4); // return True
+myCircularDeque.getFront();     // return 4
+
+"""
+
+class MyCircularDeque:
+
+    def __init__(self, k):
+        self._size = 0
+        self._front, self._rear = 0, 0
+        self._capacity = k
+        self._data = [-1] * k
+
+    def insertFront(self, value):
+
+        if self.isFull():
+            return False
+        if self.isEmpty():
+            self._data[self._front] = value
+        else:
+            self._front = (self._front - 1) % self._capacity
+            self._data[self._front] = value
+        self._size += 1
+        return True
+
+    def insertLast(self, value):
+
+        if self.isFull():
+            return False
+        if self.isEmpty():
+            self._data[self._rear] = value
+        else:
+            self._rear = (self._rear + 1) % self._capacity
+            self._data[self._rear] = value
+        self._size += 1
+        return True
+
+    def deleteFront(self):
+        if self.isEmpty():
+            return False
+        self._data[self._front] = -1
+        self._front = (self._front + 1) % self._capacity
+        self._size -= 1
+        if self.isEmpty():
+            self._rear = self._front
+        return True
+
+    def deleteLast(self):
+
+        if self.isEmpty():
+            return False
+        self._data[self._rear] = -1
+        self._rear = (self._rear - 1) % self._capacity
+        self._size -= 1
+        if self.isEmpty():
+            self._front = self._rear
+        return True
+
+    def getFront(self):
+
+        return self._data[self._front]
+
+    def getRear(self):
+
+        return self._data[self._rear]
+
+    def isEmpty(self):
+  
+        return self._size == 0
+
+    def isFull(self):
+
+        return self._size == self._capacity
+
+
+# Your MyCircularDeque object will be instantiated and called as such:
+# obj = MyCircularDeque(k)
+# param_1 = obj.insertFront(value)
+# param_2 = obj.insertLast(value)
+# param_3 = obj.deleteFront()
+# param_4 = obj.deleteLast()
+# param_5 = obj.getFront()
+# param_6 = obj.getRear()
+# param_7 = obj.isEmpty()
+# param_8 = obj.isFull()
+
