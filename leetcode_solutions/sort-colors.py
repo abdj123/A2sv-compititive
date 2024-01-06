@@ -3,10 +3,16 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        for i in range(len(nums)):
-            for j in range(len(nums)-1):
-                if(nums[i]<nums[j]):
-                    temp=nums[i]
-                    nums[i]=nums[j]
-                    nums[j]=temp
+        i=1
+        
+        while(i<len(nums)):
+            j=i
+            while(j>0 and nums[j]<nums[j-1]):
+                nums[j], nums[j-1]=nums[j-1], nums[j]
+                j-=1
+            i+=1
+            
+
+        
+        
         
