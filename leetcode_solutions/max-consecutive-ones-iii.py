@@ -2,7 +2,7 @@ class Solution:
     def longestOnes(self, nums: List[int], k: int) -> int:
         left = 0
         zeros = 0
-        res = -math.inf
+        res = float('-inf')
 
         for right in range(len(nums)):
             if nums[right] == 0:
