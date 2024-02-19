@@ -2,6 +2,8 @@ class Solution:
     def minMoves(self, target: int, maxDoubles: int) -> int:
         if(target==1):
             return 0
+        elif(target==2):
+            return 1
         res=1
         rem=0
         count=0
