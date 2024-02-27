@@ -6,16 +6,12 @@
 #         self.right = right
 class Solution:
     def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
-        is_p_null = p is None
-        is_q_null = q is None
-        
-        if is_p_null and is_q_null:
+        if(not q and not p):
             return True
-        elif is_p_null or is_q_null:
+        if(not q or not p):
             return False
-        else:
-            status = p.val == q.val
-            status = status and self.isSameTree(p.left, q.left)
-            status = status and self.isSameTree(p.right, q.right)
-            return status
+        if(p.val != q.val):
+            return False
+        
+        return self.isSameTree(p.left,q.left) and self.isSameTree(p.right,q.right)
         
