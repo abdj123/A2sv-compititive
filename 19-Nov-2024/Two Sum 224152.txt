@@ -1,0 +1,12 @@
+# Problem: Two Sum - https://leetcode.com/problems/two-sum/
+
+func twoSum(nums []int, target int) []int {
+    for i,v := range nums{
+        for j,val := range nums{
+            if i != j && v + val == target{
+                return []int {i,j}
+            }
+        }
+    }
+    return []int {}
+}
